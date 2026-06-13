@@ -5,7 +5,7 @@ from time import sleep
 from typing import Tuple
 from pygame import K_RIGHT, K_LEFT, K_UP, K_DOWN
 
-from smartQeue import SmartQeue
+from smartQeue import SmartQueue
 from food import Food
 from consts import display, background, clock, EAT_SOUND, SNAKE_SPEED, SNAKE_COLOR, SNAKE_THICKNESS, NODE_LENGTH, SPEED_GROWTH_CONST, TEXT_FONT, WHITE
 
@@ -14,14 +14,14 @@ class Snake:
     def __init__(self, speed: int = SNAKE_SPEED, color: Tuple[int, int, int] = SNAKE_COLOR, thickness: int = SNAKE_THICKNESS) -> None:
         """
         ::
-            Constructor for Snake. Using SmartQeue to manage snake's nodes.
+            Constructor for Snake. Using SmartQueue to manage snake's nodes.
 
         Parameters:
             (int) speed:                    Clocks ticks between moves (milliseconds).
             (Tuple[int, int, int]) color:   Snake color (r,g,b).
             (int) thickness:                Thickness of snake.  
         """
-        self.nodes = SmartQeue()
+        self.nodes = SmartQueue()
         first_point, second_point, self.direction = Snake.get_random_snake_state()
         self.nodes.append(first_point)
         self.nodes.append(second_point)
@@ -100,7 +100,7 @@ class Snake:
             Drawer for snake.
         """
         pygame.draw.lines(display, SNAKE_COLOR, False,
-                          self.nodes.qeue, self.thickness)
+                          self.nodes.queue, self.thickness)
 
     def is_opposite_direction(self, new_direction: int) -> bool:
         """
@@ -139,7 +139,7 @@ class Snake:
         """
 
         snake_head = self.nodes.get_head_point()
-        rest_of_body = self.nodes.qeue[2:]
+        rest_of_body = self.nodes.queue[2:]
 
         return any([snake_head == point for point in rest_of_body])
 
@@ -193,15 +193,19 @@ class Snake:
         else:
             self.nodes.push(next_point)
 
-        display.blit(background, (0, 0))
+        if background:
+            display.blit(background, (0, 0))
+        else:
+            display.fill((30, 30, 30))  # Dark fallback color
         self.draw()
 
         if self.did_self_eat():
             self.end_game()
 
         if self.did_eat_food(food):
-            pygame.mixer.Sound.play(EAT_SOUND)
-            pygame.mixer.music.stop()
+            if EAT_SOUND:
+                pygame.mixer.Sound.play(EAT_SOUND)
+                pygame.mixer.music.stop()
 
             self.increase_speed()
 
@@ -215,7 +219,7 @@ class Snake:
         Return:
             (int):                  Length of snake in nodes.
         """
-        return len(self.nodes.qeue) - 1
+        return len(self.nodes.queue) - 1
 
     def show_score(self) -> None:
         """

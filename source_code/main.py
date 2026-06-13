@@ -1,6 +1,6 @@
 import pygame
 
-from pygame import QUIT, KEYDOWN, K_ESCAPE, K_RIGHT, K_LEFT, K_UP, K_DOWN\
+from pygame import QUIT, KEYDOWN, K_ESCAPE, K_RIGHT, K_LEFT, K_UP, K_DOWN
 
 from snake import Snake
 from food import Food
