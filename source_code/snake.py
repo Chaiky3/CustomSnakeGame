@@ -5,7 +5,7 @@ from time import sleep
 from typing import Tuple
 from pygame import K_RIGHT, K_LEFT, K_UP, K_DOWN
 
-from source_code.smartQueue import SmartQueue
+from smartQueue import SmartQueue
 from food import Food
 from consts import display, background, clock, EAT_SOUND, SNAKE_SPEED, SNAKE_COLOR, SNAKE_THICKNESS, NODE_LENGTH, SPEED_GROWTH_CONST, TEXT_FONT, WHITE
 
