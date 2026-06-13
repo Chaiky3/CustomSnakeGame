@@ -41,8 +41,9 @@ def run_game_loop() -> None:
 
             # adds food every FOOD_TIME_INTERVAL if there is not any
             elif event.type == NEW_FOOD_EVENT and not food:
-                pygame.mixer.Sound.play(FOOD_APPEAR_SOUND)
-                pygame.mixer.music.stop()
+                if FOOD_APPEAR_SOUND:
+                    pygame.mixer.Sound.play(FOOD_APPEAR_SOUND)
+                    pygame.mixer.music.stop()
                 food = Food()
 
         if not changed_direction and snake.move(snake.direction, food=food):

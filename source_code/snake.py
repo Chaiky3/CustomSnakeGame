@@ -193,15 +193,19 @@ class Snake:
         else:
             self.nodes.push(next_point)
 
-        display.blit(background, (0, 0))
+        if background:
+            display.blit(background, (0, 0))
+        else:
+            display.fill((30, 30, 30))  # Dark fallback color
         self.draw()
 
         if self.did_self_eat():
             self.end_game()
 
         if self.did_eat_food(food):
-            pygame.mixer.Sound.play(EAT_SOUND)
-            pygame.mixer.music.stop()
+            if EAT_SOUND:
+                pygame.mixer.Sound.play(EAT_SOUND)
+                pygame.mixer.music.stop()
 
             self.increase_speed()
 
