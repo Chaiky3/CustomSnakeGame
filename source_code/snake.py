@@ -10,6 +10,10 @@ from food import Food
 from consts import display, background, clock, EAT_SOUND, SNAKE_SPEED, SNAKE_COLOR, SNAKE_THICKNESS, NODE_LENGTH, SPEED_GROWTH_CONST, TEXT_FONT, WHITE
 
 
+class GameOverException(Exception):
+    pass
+
+
 class Snake:
     def __init__(self, speed: int = SNAKE_SPEED, color: Tuple[int, int, int] = SNAKE_COLOR, thickness: int = SNAKE_THICKNESS) -> None:
         """
@@ -236,28 +240,6 @@ class Snake:
     def end_game(self) -> None:
         """
         ::
-            Ends game and closes window.
-            Called in 3 cases:
-                - User exits game.
-                - Snake has gotten to edge.
-                - Snake ate itself.
-
-            Prints a "Game Over" message and quits.
+            Raises GameOverException to handle game over transition in main loop.
         """
-
-        font = pygame.font.Font(TEXT_FONT, 100)
-        text = font.render('Game Over', True, WHITE)
-
-        text_rect = text.get_rect()
-
-        text_rect.center = (display.get_width() // 2,
-                            display.get_height() // 4)
-
-        self.show_score()
-        display.blit(text, text_rect)
-        pygame.display.update()
-
-        sleep(2)
-
-        pygame.quit()
-        quit()
+        raise GameOverException()
