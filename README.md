@@ -1,5 +1,6 @@
 # Custom Snake Game
 
+> Made this game to surprise my friends. Originally put photos of them with sounds affects from our whatsapp voice notes. Was a lot of fun. Thought it would be nice to make it public and generic.
 An elegant, highly customizable, and robust Python Snake game built with Pygame. It dynamically loads custom assets and features classic arcade gameplay screens, automatic difficulty progression, and high score persistence!
 
 ---
